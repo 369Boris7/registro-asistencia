@@ -3,6 +3,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "cambia-esta-clave-en-produccion"
 DEBUG = False
+
 ALLOWED_HOSTS = [
     "54.81.101.154",
     "localhost",
