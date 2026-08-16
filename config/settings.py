@@ -1,10 +1,12 @@
 from pathlib import Path
-
+import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "cambia-esta-clave-en-produccion"
 DEBUG = False
-
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.getenv(
+    "ALLOWED_HOSTS",
+    "*",
+).split(",")
 
 INSTALLED_APPS = [
     "django.contrib.admin",
