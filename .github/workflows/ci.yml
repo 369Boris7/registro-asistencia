@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: "pip"
 
       - name: Instalar dependencias
         run: |
@@ -28,7 +29,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Ejecutar linter
-        run: ruff check .
+        run: ruff check . --output-format=github
 
       - name: Ejecutar pruebas
         run: pytest -v
