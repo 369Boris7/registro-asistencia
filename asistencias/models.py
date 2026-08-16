@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Asistencia(models.Model):
     nombre_estudiante = models.CharField(max_length=100)
     curso = models.CharField(max_length=100)
@@ -7,4 +8,4 @@ class Asistencia(models.Model):
     presente = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'{self.nombre_estudiante} - {self.curso}'
+        return f"{self.nombre_estudiante} - {self.curso}"

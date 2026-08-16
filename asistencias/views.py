@@ -27,7 +27,9 @@ def health(request):
 
 @api_view(["GET"])
 def version(request):
-    return Response({
-        "application": "registro-asistencia",
-        "version": "1.0.1",
-    })
+    return Response(
+        {
+            "application": "registro-asistencia",
+            "version": "1.0.1",
+        }
+    )

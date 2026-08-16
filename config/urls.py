@@ -4,13 +4,15 @@ from django.urls import include, path
 
 
 def inicio(request):
-    return JsonResponse({
-        "proyecto": "Registro de asistencia",
-        "estado": "funcionando",
-        "health": "/api/health",
-        "version": "/api/version",
-        "crud": "/api/asistencias/",
-    })
+    return JsonResponse(
+        {
+            "proyecto": "Registro de asistencia",
+            "estado": "funcionando",
+            "health": "/api/health",
+            "version": "/api/version",
+            "crud": "/api/asistencias/",
+        }
+    )
 
 
 urlpatterns = [

@@ -1,0 +1,18 @@
+[tool.ruff]
+exclude = [
+    ".venv",
+    "__pycache__",
+    ".git",
+    "*/migrations/*",
+]
+
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "RUF",
+]

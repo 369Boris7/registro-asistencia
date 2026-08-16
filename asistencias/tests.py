@@ -5,7 +5,6 @@ from .models import Asistencia
 
 
 class AsistenciaApiTest(TestCase):
-
     def setUp(self):
         self.client = APIClient()
         self.registro = Asistencia.objects.create(
@@ -54,9 +53,7 @@ class AsistenciaApiTest(TestCase):
         )
 
     def test_consultar_asistencia(self):
-        response = self.client.get(
-            f"/api/asistencias/{self.registro.id}/"
-        )
+        response = self.client.get(f"/api/asistencias/{self.registro.id}/")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()["curso"], "TILE23")
@@ -72,16 +69,10 @@ class AsistenciaApiTest(TestCase):
         self.assertFalse(response.json()["presente"])
 
     def test_eliminar_asistencia(self):
-        response = self.client.delete(
-            f"/api/asistencias/{self.registro.id}/"
-        )
+        response = self.client.delete(f"/api/asistencias/{self.registro.id}/")
 
         self.assertEqual(response.status_code, 204)
-        self.assertFalse(
-            Asistencia.objects.filter(
-                id=self.registro.id
-            ).exists()
-        )
+        self.assertFalse(Asistencia.objects.filter(id=self.registro.id).exists())
 
     def test_rechazar_datos_incompletos(self):
         response = self.client.post(
