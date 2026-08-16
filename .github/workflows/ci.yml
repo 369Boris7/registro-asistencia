@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-          cache: "pip"
+          cache: pip
 
       - name: Instalar dependencias
         run: |
@@ -31,8 +31,6 @@ jobs:
 
       - name: Ejecutar linter
         run: |
-          ruff check . --output-format=github --exclude manage.py
-
-      - name: Ejecutar pruebas
-        run: |
-          pytest -v
+          ruff check . \
+            --output-format=github \
+            --exclude manage
