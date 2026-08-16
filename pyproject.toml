@@ -1,13 +1,14 @@
 [tool.ruff]
-exclude = [
-    ".venv",
-    "__pycache__",
-    ".git",
-    "*/migrations/*",
-]
-
 line-length = 88
 target-version = "py312"
+
+exclude = [
+    ".venv",
+    ".git",
+    "__pycache__",
+    ".pytest_cache",
+    "*/migrations/*",
+]
 
 [tool.ruff.lint]
 select = [
@@ -15,4 +16,7 @@ select = [
     "F",
     "I",
     "RUF",
+]
+extend-ignore = [
+    "EXE001",
 ]
