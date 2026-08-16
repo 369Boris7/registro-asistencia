@@ -7,9 +7,9 @@ class AsistenciaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Asistencia
         fields = (
-    "id",
-    "nombre_estudiante",
-    "curso",
-    "fecha",
-    "presente",
-)
+            "id",
+            "nombre_estudiante",
+            "curso",
+            "fecha",
+            "presente",
+        )
