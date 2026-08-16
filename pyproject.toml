@@ -8,6 +8,7 @@ exclude = [
     "__pycache__",
     ".pytest_cache",
     "*/migrations/*",
+    "manage.py",
 ]
 
 [tool.ruff.lint]
@@ -15,13 +16,4 @@ select = [
     "E",
     "F",
     "I",
-    "RUF",
 ]
-extend-ignore = [
-    "EXE001",
-]
-
-[tool.ruff.lint.per-file-ignores]
-"manage.py" = ["EXE001"]
-"asistencias/tests.py" = ["S101"]
-"tests/*.py" = ["S101"]
