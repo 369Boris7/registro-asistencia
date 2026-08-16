@@ -1,13 +1,24 @@
-from django.urls import include, path
-from rest_framework.routers import DefaultRouter
+from django.urls import path
 
-from .views import AsistenciaViewSet, health, version
-
-router = DefaultRouter()
-router.register("asistencias", AsistenciaViewSet)
+from .views import (
+    health,
+    version,
+    registrar_asistencia,
+    consultar_asistencia,
+)
 
 urlpatterns = [
-    path("", include(router.urls)),
-    path("health", health),
-    path("version", version),
+    path("health", health, name="health"),
+    path("version", version, name="version"),
+
+    path(
+        "asistencias/",
+        registrar_asistencia,
+        name="registrar_asistencia",
+    ),
+    path(
+        "asistencias/<int:pk>/",
+        consultar_asistencia,
+        name="consultar_asistencia",
+    ),
 ]

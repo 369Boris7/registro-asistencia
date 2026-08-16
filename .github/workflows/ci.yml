@@ -1,36 +1,59 @@
-name: CI
+name: CD
 
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
-  pull_request:
-    branches:
-      - master
+permissions:
+  contents: read
 
 jobs:
-  test:
-    name: Pruebas y linter
+  build-and-push:
+    name: Construir y publicar imagen ECR
     runs-on: ubuntu-latest
 
     steps:
       - name: Descargar repositorio
         uses: actions/checkout@v4
 
-      - name: Configurar Python
-        uses: actions/setup-python@v5
+      - name: Configurar AWS
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          python-version: "3.12"
-          cache: pip
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Instalar dependencias
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+      - name: Iniciar sesión en Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Ejecutar linter
+      - name: Construir imagen
         run: |
-          ruff check . \
-            --output-format=github \
-            --exclude manage
+          docker build \
+            -t ${{ secrets.ECR_REPOSITORY }}:${{ github.sha }} \
+            -t ${{ secrets.ECR_REPOSITORY }}:latest \
+            .
+
+      - name: Etiquetar imagen SHA para ECR
+        run: |
+          docker tag \
+            ${{ secrets.ECR_REPOSITORY }}:${{ github.sha }} \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
+
+      - name: Etiquetar imagen latest para ECR
+        run: |
+          docker tag \
+            ${{ secrets.ECR_REPOSITORY }}:latest \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
+
+      - name: Publicar imagen SHA en ECR
+        run: |
+          docker push \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
+
+      - name: Publicar imagen latest en ECR
+        run: |
+          docker push \
+            ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}:latest
