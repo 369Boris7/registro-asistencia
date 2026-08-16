@@ -4,9 +4,12 @@ on:
   push:
     branches:
       - master
+
   pull_request:
     branches:
       - master
+
+  workflow_dispatch:
 
 jobs:
   test:
@@ -28,8 +31,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Mostrar manage.py
+        run: |
+          head -5 manage.py
+
       - name: Ejecutar linter
-        run: ruff check . --output-format=github --ignore EXE001
+        run: |
+          ruff check . --output-format=github --ignore EXE001
 
       - name: Ejecutar pruebas
         run: pytest -v
