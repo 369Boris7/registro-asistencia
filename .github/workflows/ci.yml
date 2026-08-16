@@ -9,8 +9,6 @@ on:
     branches:
       - master
 
-  workflow_dispatch:
-
 jobs:
   test:
     name: Pruebas y linter
@@ -31,13 +29,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Mostrar manage.py
-        run: |
-          head -5 manage.py
-
       - name: Ejecutar linter
         run: |
-          ruff check . --output-format=github --ignore EXE001
+          ruff check . --output-format=github --exclude manage.py
 
       - name: Ejecutar pruebas
-        run: pytest -v
+        run: |
+          pytest -v
