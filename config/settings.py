@@ -4,12 +4,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "cambia-esta-clave-en-produccion"
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    "100.24.240.2",
-    "54.81.101.154",
-    "localhost",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
