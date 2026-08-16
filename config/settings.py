@@ -5,7 +5,7 @@ SECRET_KEY = "cambia-esta-clave-en-produccion"
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "54.81.101.154",
+    "100.24.240.2",
     "localhost",
     "127.0.0.1",
 ]
