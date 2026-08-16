@@ -6,6 +6,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "100.24.240.2",
+    "54.81.101.154",
     "localhost",
     "127.0.0.1",
 ]
