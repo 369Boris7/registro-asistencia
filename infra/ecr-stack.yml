@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: Repositorio ECR para registro-asistencia con escaneo automatico
+
+Parameters:
+  RepositoryName:
+    Type: String
+    Default: registro-asistencia
+
+Resources:
+  ApplicationRepository:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Ref RepositoryName
+      ImageScanningConfiguration:
+        ScanOnPush: true
+      ImageTagMutability: MUTABLE
+      Tags:
+        - Key: Proyecto
+          Value: registro-asistencia
+        - Key: Ambiente
+          Value: desarrollo
+
+Outputs:
+  RepositoryUri:
+    Description: URI del repositorio ECR
+    Value: !GetAtt ApplicationRepository.RepositoryUri
+
+  RepositoryName:
+    Description: Nombre del repositorio ECR
+    Value: !Ref ApplicationRepository
